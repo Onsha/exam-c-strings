@@ -17,16 +17,16 @@ int main()
     
     while (token != NULL) 
     {
-		strcpy(words[j], token);
+        strcpy(words[j], token);
         token = strtok(NULL, " ,.");
-		++j;
+        ++j;
     }
     
-	for (i = 0; i < j; ++i) {
-		printf("%s ", words[i]);
-	}
-	
-	printf("\n\n");
+    for (i = 0; i < j; ++i) {
+        printf("%s ", words[i]);
+    }
+    
+    printf("\n\n");
     
     return 1;
 }
