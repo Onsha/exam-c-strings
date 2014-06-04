@@ -15,8 +15,7 @@ int main()
         
     token = strtok(data, " ,.");
     
-    while (token != NULL) 
-    {
+    while (token != NULL)  {
         strcpy(words[j], token);
         token = strtok(NULL, " ,.");
         ++j;
