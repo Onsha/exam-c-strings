@@ -1,2 +1,2 @@
-clear && gcc src/main.c -o bin/main -Wall
+clear && gcc src/main.cpp -o bin/main -Wall -lstdc++
 ./bin/main
