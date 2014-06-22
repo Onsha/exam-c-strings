@@ -3,21 +3,21 @@
 #include <string.h>
 
 typedef struct {
-	char *content;
-	int size  = 0;
-	int words = 0;
-	int error = 1;
+    char *content;
+    int size  = 0;
+    int words = 0;
+    int error = 1;
 } filedata;
 
 typedef struct {
-	char *text;
-	int length = 0;
+    char *text;
+    int length = 0;
 } word;
 
 void _ui_ask_file(char *path)
-{	
-	printf("Укажите путь к файлу с текстом: ");
-	scanf("%s", path);
+{   
+    printf("Укажите путь к файлу с текстом: ");
+    scanf("%s", path);
 }
 
 int get_words_count(const char sentence[ ])
@@ -81,26 +81,26 @@ filedata get_filedata(char *filename)
 
 int main()
 {
-	char filename[255];
-	filedata data;
-	
-	_ui_ask_file(filename);
-	
-	data = get_filedata(filename);
-	
-	if (data.error == 1) {
-		return 0;
-	}
-	
-	printf("Content: %s\nSize: %d\n", data.content, data.size);
-	
-	return 0;
+    char filename[255];
+    filedata data;
+    
+    _ui_ask_file(filename);
+    
+    data = get_filedata(filename);
+    
+    if (data.error == 1) {
+        return 0;
+    }
+    
+    printf("Content: %s\nSize: %d\n", data.content, data.size);
+    
+    return 0;
 }
 
 
 //~ int test()
 //~ {
-	//~ 
+    //~ 
     //~ char *data = getContent("text.txt"), *token, words[255][255];
     //~ int i = 0, j = 0;
     //~ 
