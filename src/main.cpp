@@ -3,10 +3,8 @@
 #include <vector>
 #include <fstream>
 #include <algorithm>
-#include <locale>
 #include <ctype.h>
 #include <string.h>
-
 
 using namespace std;
 
@@ -46,6 +44,7 @@ int main()
     while (!file.eof()) {
         file >> word;
         word.erase(remove_if(word.begin(), word.end(), is_not_alphanum), word.end());
+        transform(word.begin(), word.end(), word.begin(), ::tolower);
         words.push_back(word);
     }
     
