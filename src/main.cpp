@@ -3,18 +3,21 @@
 #include <vector>
 #include <fstream>
 #include <algorithm>
-#include <ctype.h>
+#include <iterator>
+#include <locale>
 #include <string.h>
 
 using namespace std;
 
 bool is_not_alphanum(char c)
 {
-    if (!isalnum((int)c)) {
-        return true;
+    locale utf8("en_US.UTF_8");
+    
+    if (!isalnum(c, utf8)) {
+        return false;
     }
     
-    return false;
+    return true;
 }
 
 int main()
@@ -22,7 +25,7 @@ int main()
     string filepath, word;
     char path[1024];
     fstream file;
-    vector <string> words;
+    vector<string> words;
     
     cout << "Укажите путь к файлу: ";
     cin >> filepath;
@@ -43,14 +46,13 @@ int main()
     
     while (!file.eof()) {
         file >> word;
-        word.erase(remove_if(word.begin(), word.end(), is_not_alphanum), word.end());
         transform(word.begin(), word.end(), word.begin(), ::tolower);
+        word.erase(remove_if(word.begin(), word.end(), is_not_alphanum), word.end());
         words.push_back(word);
     }
     
-    for (int i = 0; i < (int)words.size(); i++) {
-        cout << words.at(i) << endl;
-    }
+    sort(words.begin(), words.end());
+    copy(words.begin(), words.end(), ostream_iterator<string>(cout, "\n"));
     
     file.close();
     
