@@ -4,20 +4,24 @@
 #include <fstream>
 #include <algorithm>
 #include <iterator>
-#include <locale>
-#include <string.h>
+#include <cstring>
+#include <cctype>
+#include <cstdlib>
 
 using namespace std;
 
-bool is_not_alphanum(char c)
+bool is_not_letter(char c)
 {
-    locale utf8("en_US.UTF_8");
-    
-    if (!isalnum(c, utf8)) {
-        return false;
-    }
-    
-    return true;
+	if (!isalpha(c)) {
+		return true;
+	}
+	
+	return false;
+}
+
+bool sort_by_length(const string& a, const string& b)
+{
+	return ((b.length() > a.length()) && (b[0] >= a[0]));
 }
 
 int main()
@@ -32,7 +36,7 @@ int main()
     
     if (filepath.empty()) {
         cout << "Путь к файлу не указан." << endl;
-        return 0;
+        return EXIT_FAILURE;
     }
     
     strncpy(path, filepath.c_str(), sizeof(path));
@@ -41,20 +45,25 @@ int main()
     file.open(path, fstream::in);
     if (!file.is_open()) {
         cout << "Не удалось открыть файл: " << filepath << endl;
-        return 0;
+        return EXIT_FAILURE;
     }
     
     while (!file.eof()) {
         file >> word;
-        transform(word.begin(), word.end(), word.begin(), ::tolower);
-        word.erase(remove_if(word.begin(), word.end(), is_not_alphanum), word.end());
+
+		for (string::size_type i = 0; i < word.length(); ++i) {
+			word[i] = tolower(word[i]);
+		}
+		
+        word.erase(remove_if(word.begin(), word.end(), is_not_letter), word.end());
         words.push_back(word);
     }
     
-    sort(words.begin(), words.end());
-    copy(words.begin(), words.end(), ostream_iterator<string>(cout, "\n"));
-    
     file.close();
-    
-    return 1;
+
+    sort(words.begin(), words.end());
+    sort(words.begin(), words.end(), sort_by_length);
+    copy(words.begin(), words.end(), ostream_iterator<string>(cout, "\n"));
+        
+    return EXIT_SUCCESS;
 }
