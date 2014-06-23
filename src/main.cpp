@@ -65,5 +65,6 @@ int main()
     sort(words.begin(), words.end(), sort_by_length);
     copy(words.begin(), words.end(), ostream_iterator<string>(cout, "\n"));
         
+    system("pause");
     return EXIT_SUCCESS;
 }
