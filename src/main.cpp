@@ -12,16 +12,16 @@ using namespace std;
 
 bool is_not_letter(char c)
 {
-	if (!isalpha(c)) {
-		return true;
-	}
-	
-	return false;
+    if (!isalpha(c)) {
+        return true;
+    }
+    
+    return false;
 }
 
 bool sort_by_length(const string& a, const string& b)
 {
-	return ((b.length() > a.length()) && (b[0] >= a[0]));
+    return ((b.length() > a.length()) && (b[0] >= a[0]));
 }
 
 int main()
@@ -51,10 +51,10 @@ int main()
     while (!file.eof()) {
         file >> word;
 
-		for (string::size_type i = 0; i < word.length(); ++i) {
-			word[i] = tolower(word[i]);
-		}
-		
+        for (string::size_type i = 0; i < word.length(); ++i) {
+            word[i] = tolower(word[i]);
+        }
+        
         word.erase(remove_if(word.begin(), word.end(), is_not_letter), word.end());
         words.push_back(word);
     }
